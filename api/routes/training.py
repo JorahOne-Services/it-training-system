@@ -1,11 +1,18 @@
+from typing import Literal
+
+from app import (
+    LearningPath,
+    LearningPathItem,
+    Quiz,
+    QuizAttempt,
+    User,
+    UserEvent,
+    Video,
+    get_db,
+)
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from sqlalchemy import desc, or_
-from typing import Literal
-from datetime import datetime
-
-from app import get_db, User, Video, Quiz, QuizAttempt, LearningPath, LearningPathItem, UserEvent
 
 logger = logging.getLogger("training.routes")
 router = APIRouter()
@@ -177,7 +184,7 @@ def team_overview(manager_id: int = Query(...), db: Session = Depends(get_db)):
                 "quiz_count": len(attempts),
                 "average_score": round(sum(a.score for a in attempts) / len(attempts), 2) if attempts else 0,
                 "last_attempt": attempts[0].completed_at if attempts else None,
-            }
+            },
         )
     return out
 
