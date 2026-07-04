@@ -1,177 +1,83 @@
-# IT Training Management System
+<div align="center">
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white">
+</div>
 
-Self-hosted IT training platform with Hermes as the orchestrator and a FastAPI backend.
+<br>
 
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Technology Stack](#technology-stack)
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Service Management](#service-management)
-- [Project Structure](#project-structure)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
-- [Author](#author)
-
----
-
-## Overview
-
-The IT Training Management System combines a FastAPI backend with supporting services (Ollama, Qdrant, MinIO, Telegram bot) to deliver structured IT training: learning paths, quizzes, video ingestion, and progress tracking. Hermes agent skills extend the platform with content creation, ingestion, and reporting.
+<div align="center">
+  <h1>🎓 IT Training System</h1>
+  <p><strong>Self-Hosted IT Training Management Platform</strong></p>
+  <p>Structured learning paths, automated quizzes, progress tracking, and video ingestion</p>
+  <p>
+    <a href="#-features">Features</a> •
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-architecture">Architecture</a> •
+    <a href="#-tech-stack">Tech Stack</a>
+  </p>
+</div>
 
 ---
 
-## Architecture
+## ✨ Features
 
-Client → FastAPI backend (`api/app.py`, port `8080`) → supporting services:
+- **Learning Paths** — Structured IT training curricula
+- **Automated Quizzes** — AI-generated quiz synthesis with Ollama
+- **Progress Tracking** — Monitor trainee progress and completion
+- **Video Ingestion** — Training media ingestion via MinIO
+- **Semantic Search** — Qdrant vector search for training content
+- **Telegram Bot** — Notifications and interaction
+- **FastAPI Backend** — Modern, async Python backend
 
-- **Ollama** (port `11434`) — local LLM for content generation and quiz synthesis.
-- **Qdrant** (port `6333`) — vector memory for semantic content retrieval.
-- **MinIO** (ports `9000`/`9001`) — object storage for uploaded training media.
-- **Telegram bot** — optional notification channel via `api/bots/telegram.py`.
-
-Hermes skills in `skills/` wire into the backend for orchestration.
-
----
-
-## Technology Stack
-
-| Layer | Stack |
-|---|---|
-| Runtime | Docker Compose (Ollama, Qdrant, MinIO, FastAPI) |
-| Backend | Python / FastAPI / Uvicorn |
-| Storage | MinIO (S3-compatible) |
-| Vector DB | Qdrant |
-| LLM | Ollama |
-| Database | SQLAlchemy + SQLite / Postgres (via `DATABASE_URL`) |
-| Orchestration | Hermes Agent skills |
-| VCS | Git + GitHub (`github.com/OneByJorah/it-training-system`) |
-
----
-
-## Features
-
-- **Learning paths**: structured courses with ordered items.
-- **Quiz engine**: question generation and scoring.
-- **Progress tracking**: per-user event and completion tracking.
-- **Video ingestion**: upload and index training videos.
-- **Telegram integration**: bot-driven training notifications and interactions.
-- **Semantic search**: Qdrant-backed retrieval over training content.
-- **Docker compose**: one-stack deploy with `docker-compose.yml`.
-
----
-
-## Getting Started
+## 🚀 Quick Start
 
 ```bash
-# 1. Clone
 git clone https://github.com/OneByJorah/it-training-system.git
 cd it-training-system
-
-# 2. Environment
 cp compose.env.example .env
-
-# 3. Start the stack
-docker compose up -d
-
-# 4. Bootstrap
-./scripts/bootstrap.sh
+# Edit .env with your configuration
+docker-compose up -d
 ```
 
----
+API available at **http://localhost:8080**.
 
-## Environment Variables
-
-Configured via `.env` (see `compose.env.example`):
-
-| Variable | Purpose |
-|---|---|
-| `DATABASE_URL` | SQLAlchemy database connection |
-| `SECRET_KEY` | FastAPI secret |
-| `TELEGRAM_BOT_TOKEN` | Telegram bot token |
-| `TELEGRAM_ADMIN_CHAT_ID` | Admin chat for notifications |
-| MinIO | `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD` |
-
-Keep `.env` out of VCS.
-
----
-
-## Service Management
-
-```bash
-# Start
-docker compose up -d
-
-# Logs
-docker compose logs -f training-api
-
-# Stop
-docker compose down
-```
-
----
-
-## Project Structure
+## 🏗️ Architecture
 
 ```
 it-training-system/
-├── api/
-│   ├── app.py
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   ├── routes/
-│   │   └── training.py
-│   └── bots/
-│       └── telegram.py
-├── db/
-│   └── schema.sql
-├── docker-compose.yml
-├── compose.env.example
-├── scripts/
-│   ├── bootstrap.sh
-│   └── test_api.sh
-├── skills/
-│   ├── content-creator/SKILL.md
-│   ├── learning-path-engine/SKILL.md
-│   ├── progress-tracker/SKILL.md
-│   ├── quiz-generator/SKILL.md
-│   ├── telegram-training-bot/SKILL.md
-│   └── training-ingestion/SKILL.md
-├── docs/
-│   ├── setup.md, deploy.md, overview.md, reference.md, observability.md
-├── ops/
-│   └── roadmap.md
+├── api/                       # FastAPI backend
+├── db/                        # Database models & migrations
+├── ops/                       # Operations & deployment
+├── scripts/                   # Utility scripts
+├── skills/                    # Hermes agent skills
+├── docs/                      # Documentation
+├── docker-compose.yml         # Deployment
+├── Makefile                   # Build automation
 └── README.md
 ```
 
----
+## 🛠️ Tech Stack
 
-## Screenshots
+| Component | Technology |
+|-----------|------------|
+| Backend | Python, FastAPI, SQLAlchemy |
+| Database | SQLite / PostgreSQL |
+| Vector Store | Qdrant |
+| Object Storage | MinIO (S3-compatible) |
+| LLM | Ollama |
+| Notifications | Telegram Bot |
+| Agents | Hermes AgentOS |
+| Deployment | Docker Compose |
 
-_(Screenshots will be added after build/run capture.)_
+## 📄 License
 
----
-
-## Contributing
-
-1. Create a feature branch off `main`.
-2. Update schema/docs when changing the data model.
-3. Submit a PR with description and screenshots for UI changes.
-
----
-
-## License
-
-MIT
+MIT © Jhonattan L. Jimenez
 
 ---
 
-## Author
-
-Built by **Jhonattan L. Jimenez**.
+<div align="center">
+  <p>📚 Train your team, self-hosted</p>
+  <p><a href="https://github.com/OneByJorah">@OneByJorah</a></p>
+</div>
