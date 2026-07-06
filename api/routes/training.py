@@ -1,8 +1,14 @@
+import logging
 from typing import Literal
 
-from app import (
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from models import (
     LearningPath,
     LearningPathItem,
+    Question,
     Quiz,
     QuizAttempt,
     User,
@@ -10,9 +16,6 @@ from app import (
     Video,
     get_db,
 )
-from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel
-from sqlalchemy.orm import Session
 
 logger = logging.getLogger("training.routes")
 router = APIRouter()
