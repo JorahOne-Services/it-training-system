@@ -2,8 +2,6 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir fastapi uvicorn httpx
-RUN pip install --no-cache-dir fastapi uvicorn httpx minio qdrant-client ollama qdrant-client python-dotenv aiofiles
 RUN apt-get update && apt-get install -y --no-install-recommends build-essential ffmpeg curl && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
