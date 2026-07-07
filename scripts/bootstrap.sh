@@ -9,9 +9,6 @@ fi
 echo "Starting training stack..."
 docker compose up -d
 
-echo "Pulling a small Ollama model..."
-docker exec -it training-ollama ollama pull llama3 || true
-
 echo "Done."
 echo "API: http://localhost:8080"
 echo "MinIO: http://localhost:9001"
