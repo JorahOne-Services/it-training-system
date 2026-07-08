@@ -1,4 +1,4 @@
-# it-training-system — Fixes and Enhancements
+# LearnForge — Fixes and Enhancements
 
 ## Changes Made
 
