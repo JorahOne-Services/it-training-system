@@ -25,7 +25,7 @@ ENV PATH=/root/.local/bin:$PATH
 
 # App code
 COPY api/ api/
-COPY requirements.txt .
+COPY api/requirements.txt .
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
