@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Literal
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
@@ -89,7 +90,13 @@ async def upload_video(title: str, uploaded_by: int, file: UploadFile = File(...
     if not file.filename.lower().endswith((".mp4", ".mov", ".avi", ".mkv", ".webm")):
         raise HTTPException(status_code=400, detail="unsupported video format")
 
-    path = f"/uploads/{file.filename}"
+    safe_name = os.path.basename(file.filename)
+    if not safe_name or "/" in safe_name or "\\" in safe_name:
+        raise HTTPException(status_code=400, detail="invalid filename")
+
+    upload_dir = "/uploads"
+    os.makedirs(upload_dir, exist_ok=True)
+    path = os.path.join(upload_dir, safe_name)
     with open(path, "wb") as f:
         f.write(await file.read())
 

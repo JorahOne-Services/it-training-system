@@ -9,7 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN addgroup --system --gid 1001 app && \
+RUN mkdir -p /uploads && \
+    addgroup --system --gid 1001 app && \
     adduser --system --uid 1001 --gid 1001 app && \
     chown -R app:app /app /uploads
 
