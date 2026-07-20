@@ -77,7 +77,7 @@ LearnForge/
 
 ## 📄 License
 
-MIT © Jhonattan L. Jimenez
+MIT © Jhonattan L. Jimenez / JorahOne LLC
 
 ---
 
